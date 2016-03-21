@@ -32,7 +32,7 @@ namespace Program
 
             Console.Write("File path to write result:");
             Guid g = Guid.NewGuid();
-            string resultFile = ReadString(); // string.Format(@"C:\PerfLogs\pr_{0}.csv",g.ToString());
+            string resultFile = ReadString(); // string.Format(@"C:\PerfLogs\pr_{0}.csv", g.ToString());
             Console.WriteLine();
 
             var repoTask = VsoRestClient.GetVsoRepository(
@@ -45,7 +45,7 @@ namespace Program
 
             using (StreamWriter sw = new StreamWriter(resultFile))
             {
-                sw.WriteLine("ID,Repository,URL,ReviewLink");
+                sw.WriteLine("ID,CreatedBy,Repository,URL,ReviewLink");
 
                 foreach (var repo in repos)
                 {
@@ -66,12 +66,14 @@ namespace Program
                                 pr.PullRequestId);
                         sw.WriteLine(
                             string.Format(
-                                "{0},{1},{2},{3}",
+                                "{0},{1},{2},{3},{4}",
                                 pr.PullRequestId,
+                                pr.CreatedBy.DisplayName,
                                 repo.Name,
                                 pr.Url,
                                 reviewLink));
                         Console.WriteLine("ID:\t{0}", pr.PullRequestId);
+                        Console.WriteLine("CreatedBy:\t{0}", pr.CreatedBy.DisplayName);
                         Console.WriteLine("Repository:\t{0}", repo.Name);
                         Console.WriteLine("URL:\t{0}", pr.Url);
                         Console.WriteLine(

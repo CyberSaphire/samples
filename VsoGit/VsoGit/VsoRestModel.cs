@@ -59,5 +59,17 @@ namespace VsoGit
         public string Status { get; set; }
         [JsonProperty("url")]
         public string Url { get; set; }
+        [JsonProperty("createdBy")]
+        public VsoUser CreatedBy { get; set; }
+    }
+
+    public class VsoUser
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+        [JsonProperty("displayName")]
+        public string DisplayName { get; set; }
+        [JsonProperty("uniqueName")]
+        public string UniqueName { get; set; }
     }
 }
