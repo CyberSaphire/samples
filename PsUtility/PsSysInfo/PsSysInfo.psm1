@@ -19,6 +19,10 @@
         BANK 3    4294967296 ChannelB-DIMM1 Physical Memory Samsung
     .NOTES
     .LINK
+        https://gallery.technet.microsoft.com/scriptcenter/PowerShell-script-to-list-82f88d0e
+        http://www.nextofwindows.com/getting-ram-info-on-local-or-remote-computer-in-powershell
+        http://www.kongsli.net/2012/02/23/powershell-another-alternative-to-ternary-operator/
+
 #>
 [CmdletBinding]
 function Get-PsSysInfoRam {
