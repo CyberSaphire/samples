@@ -47,9 +47,27 @@ function Get-PsSysInfoRam {
     ) # MaxCapacity is in KB
     Write-Output ("Total RAM capacity installed:`t{0}GB" -f $totalRamInGB)
 
+    $ftExp =`
+            @{Expression={$_.BankLabel};Label="BankLabel"},`
+            @{Expression={$($_.Capacity/1GB).ToString() + "GB"};Label="Capacity"},`
+            @{Expression={`
+                    switch($_.MemoryType){`
+                        2{"DRAM"}`
+                        11{"Flash"}`
+                        20{"DDR"}`
+                        21{"DDR2"}`
+                        24{"DDR3"}`
+                        default{"Unknown"}}`
+                    };`
+                Label="MemoryType"},`
+            @{Expression={$_.Speed};Label="Speed"},`
+            @{Expression={$_.DeviceLocator};Label="DeviceLocator"},`
+            @{Expression={$_.Caption};Label="Caption"},`
+            @{Expression={$_.Manufacturer};Label="Manufacturer"}
+
     # alsternative to use following wmi
-    # wmic MEMORYCHIP get BankLabel,Capacity,DeviceLocator,Caption,Manufacturer
-    $rams | ft BankLabel,Capacity,DeviceLocator,Caption,Manufacturer | Write-Output
+    # wmic MEMORYCHIP get BankLabel,Capacity,Speed,DeviceLocator,Caption,Manufacturer
+    $rams | ft $ftExp | Write-Output
 
 }
 
